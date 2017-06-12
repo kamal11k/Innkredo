@@ -1,0 +1,85 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+Exploration of India Terror Attacks
+========================================================
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
+library(ggplot2)
+library(GGally)
+library(dplyr)
+library(reshape2)
+library(gridExtra)
+```
+Lets visualize how many attacks were done in between 1997 and 2015.
+
+
+```{r}
+df.terror = read.csv('indiadata.csv')
+```
+```{r echo=FALSE,warning=FALSE,message=FALSE }
+ggplot(aes(x = Year), data = df.terror) +labs(title ="               Terrorist attacks between 1997-2015", x = "Years", y = "Number of Attacks", size = 15)+ geom_histogram(fill = 'mediumvioletred', colour = 'black')+ylim(0,1000)+xlim(1997,2015)
+```
+
+
+
+
+Visualisation of attacks grouped by attack types:
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+ggplot(df.terror, aes(x = Year))+ labs(title ="Terrorist attacks between 1997-2015 by attack type", x = "Years", y = "Number of Attacks", size = 15) + geom_bar(fill = "mediumvioletred",colour = 'black') + facet_wrap(~attack.type,scales = "free", ncol = 3)+xlim(1997,2015)
+```
+
+
+
+Visualisation of attacks grouped by Target types:
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+ggplot(df.terror, aes(x = Year))+ labs(title ="             Terrorist attacks on India between 1997-2015 by TARGET type", x = "Years", y = "Number of Attacks") + 
+  geom_bar(colour = "black", fill = "mediumvioletred") + facet_wrap(~Target.Type, ncol = 4)+xlim(1997,2015)
+```
+
+
+
+
+Visualisation of attacks grouped by Weapon types:
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+ggplot(df.terror, aes(x = Year))+ labs(title ="             Terrorist attacks on India between 1997-2015 by WEAPON type", x = "Years", y = "Number of Attacks") + 
+  geom_bar(colour = "black", fill = "mediumvioletred") + facet_wrap(~Weapon.Type, ncol = 4)+xlim(1997,2015)
+```
+
+
+
+
+Visualization of attacks throughout years acoording to attack types:
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+ggplot(df.terror, aes(x=Year,fill=attack.type)) + geom_bar() + ggtitle("                    Yearly terrorist attacks by attack type")+         
+    labs(x = "Years", y = "Number of Attacks")+xlim(1997,2015)
+```
+
+
+
+
+
+Visualization of attacks throughout years acoording to Target types:
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+ggplot(df.terror, aes(x=Year,fill=Target.Type)) + geom_bar() + ggtitle("                    Yearly terrorist attacks by Target type")+         
+    labs(x = "Years", y = "Number of Attacks")+xlim(1997,2015)
+```
+
+
+
+
+
+Visualization of attacks throughout years acoording to Weapon types:
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+ggplot(df.terror, aes(x=Year,fill=Weapon.Type)) + geom_bar() + ggtitle("                    Yearly terrorist attacks by Weapon type")+         
+    labs(x = "Years", y = "Number of Attacks")+xlim(1997,2015)
+```
+
